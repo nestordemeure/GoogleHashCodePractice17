@@ -18,5 +18,7 @@ open GHC.Intersect
 
 /// solution
 let solution (pizza:Pizza) minIngr maxCells = 
+   printfn "computing all possible slices..."
    let allParts = potential pizza minIngr maxCells
+   printfn "computing the intersection..."
    intersect allParts
