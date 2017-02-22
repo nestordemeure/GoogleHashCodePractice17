@@ -7,11 +7,13 @@ open GHC.Domain
 
 //-------------------------------------------------------------------------------------------------
 
-let conflict (slice1:Slice) (slice2:Slice) = 
-    slice1.left < slice2.left && slice1.right > slice2.left
-    || slice1.top > slice2.top && slice1.bottom < slice2.top
-    || slice1.right > slice2.right && slice1.left < slice2.right
-    || slice1.bottom < slice2.bottom && slice1.top > slice2.bottom
+let legal (slice1:Slice) (slice2:Slice) = 
+   slice1.bottom > slice2.top
+   || slice1.top < slice2.bottom
+   || slice1.left > slice2.right
+   || slice1.right < slice2.left
+
+let inline conflict (slice1:Slice) (slice2:Slice) = not (legal slice1 slice2)
 
 //-------------------------------------------------------------------------------------------------
 
