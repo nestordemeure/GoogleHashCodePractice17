@@ -18,8 +18,8 @@ let checkSliceInside (slice:Slice) (pizza:Pizza) =
 let isLegalSlice (slice:Slice) (pizza:Pizza) (minIngr:int) (maxCells:int) =
    let mutable nbMushroom = 0
    let mutable nbTomato = 0
-   for x=slice.left to slice.right do
-       for y=slice.bottom to slice.top do
+   for y=slice.left to (slice.right-1) do
+       for x=slice.bottom downto (slice.top-1) do
            match pizza.[x, y] with
            | M -> nbMushroom <- nbMushroom+1
            | T -> nbTomato <- nbTomato+1
