@@ -7,7 +7,7 @@ open GHC.Domain
 open System.Collections.Generic
 
 //-------------------------------------------------------------------------------------------------
-
+// SOLUTION1
 let legal (slice1:Slice) (slice2:Slice) = 
    slice1.bottom > slice2.top
    || slice1.top < slice2.bottom
@@ -15,23 +15,6 @@ let legal (slice1:Slice) (slice2:Slice) =
    || slice1.right < slice2.left
 
 let inline conflict (slice1:Slice) (slice2:Slice) = not (legal slice1 slice2)
-
-//-------------------------------------------------------------------------------------------------
-
-let intersect2 (allParts:MutableSet<Slice>) =
-   /// list of all slices from the biggest to the smallest
-   let slices = allParts |> Set.ofSeq
-   let illegalSlices =
-      slices
-   /// get the biggest, eliminate conflicts, etc...
-   let rec greed slices solution =
-      match slices with 
-      | [] -> solution
-      | bestSlice :: q -> 
-         let newSolution = bestSlice :: solution 
-         let newSlices = List.filter (conflict bestSlice >> not) slices
-         greed newSlices newSolution
-   greed slices []
 
 //-------------------------------------------------------------------------------------------------
 
@@ -50,3 +33,19 @@ let intersect (allParts:MutableSet<Slice>) =
          let newSlices = List.filter (conflict bestSlice >> not) slices
          greed newSlices newSolution
    greed slices []
+
+//-------------------------------------------------------------------------------------------------
+// SOLUTION2
+
+type Case = { bottomRight : Slice list ; topRight : Slice list ; bottomLeft : Slice list ; topLeft : Slice list}
+
+let emptyCase = {bottomRight=[];topRight=[];bottomLeft=[];topLeft=[]}
+
+let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
+   let cases = Array2D.create rowNumber colNumber emptyCase
+   cases
+
+//-------------------------------------------------------------------------------------------------
+
+let intersect2 rowNumber colNumber (allParts:MutableSet<Slice>) =
+   let casePizza = fillCases allParts ()
