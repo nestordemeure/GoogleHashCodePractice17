@@ -19,5 +19,11 @@ open GHC.Domain
 let import path =
    // File.ReadLines(path)
    let text = File.ReadAllLines(path)
-   let (a,b) = sscanf "%d %d" text.[0]
-   a
+   let rowNumber, colNumber, minIngr, maxCells = sscanf "%d %d %d %d" text.[0]
+   let pizza = Array2D.create rowNumber colNumber M
+   for i = 1 to 1 + rowNumber - 1 do 
+      let index = i - 1
+      for c = 0 to colNumber do 
+         let ingr = if text.[i].[c] = 'T' then T else M
+         pizza.[index,c] <- ingr
+   pizza, minIngr, maxCells

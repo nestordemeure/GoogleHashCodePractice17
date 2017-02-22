@@ -22,17 +22,14 @@ open System.Collections.Generic
 
 [<EntryPoint>]
 let main argv =
-(*
-    //printfn "%A" argv
     // import
-    let inPath = "../input.in"
-    let r = import inPath
+    let inPath = "../inputs/small.in"
+    let pizza, minIngr, maxCells = import inPath
     // solution
 
     // evaluation
-    evaluation r
-    printfn "score : %d" score
+    //evaluation r
+    //printfn "score : %d" score
     //export 
     export "../output.txt" [||]
-*)
     0 // return an integer exit code
