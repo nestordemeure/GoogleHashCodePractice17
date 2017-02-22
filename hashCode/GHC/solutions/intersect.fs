@@ -10,7 +10,7 @@ open System.Collections.Generic
 // SOLUTION1
 let legal (slice1:Slice) (slice2:Slice) = 
    slice1.bottom < slice2.top
-   || slice1.top < slice2.bottom
+   || slice1.top > slice2.bottom
    || slice1.left > slice2.right
    || slice1.right < slice2.left
 
