@@ -57,7 +57,9 @@ let purgeSlice slice (cases:Case[,]) =
 let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
    let rowNumber = Array2D.length1 pizza
    let colNumber = Array2D.length2 pizza
+   printfn "filling the cases..."
    let cases = fillCases rowNumber colNumber allParts
+   printfn "going around in circles..."
    let mutable result = []
    let pathBL =
       [ 
