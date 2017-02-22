@@ -114,7 +114,7 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
          match List.filter (validSlice cases) cases.[r,c].bottomLeft with 
          | [] -> readBL q pathTL pathTR pathBR
          | slices -> 
-            let bestSlice = List.maxBy (fun slice -> slice.score) slices
+            let bestSlice = List.maxBy (fun slice -> slice.score, slice.bottom - slice.top) slices
             result <- bestSlice :: result
             purgeSlice bestSlice cases
             readTL q pathTL pathTR pathBR
@@ -125,7 +125,7 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
          match List.filter (validSlice cases) cases.[r,c].topLeft with 
          | [] -> readTL pathBL q pathTR pathBR
          | slices -> 
-            let bestSlice = List.maxBy (fun slice -> slice.score) slices
+            let bestSlice = List.maxBy (fun slice -> slice.score, slice.right - slice.left) slices
             result <- bestSlice :: result
             purgeSlice bestSlice cases
             readTR pathBL q pathTR pathBR
@@ -136,7 +136,7 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
          match List.filter (validSlice cases) cases.[r,c].topRight with 
          | [] -> readTR pathBL pathTL q pathBR
          | slices -> 
-            let bestSlice = List.maxBy (fun slice -> slice.score) slices
+            let bestSlice = List.maxBy (fun slice -> slice.score, slice.bottom - slice.top) slices
             result <- bestSlice :: result
             purgeSlice bestSlice cases
             readBR pathBL pathTL q pathBR
@@ -147,7 +147,7 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
          match List.filter (validSlice cases) cases.[r,c].bottomRight with 
          | [] -> readBR pathBL pathTL pathTR q
          | slices -> 
-            let bestSlice = List.maxBy (fun slice -> slice.score) slices
+            let bestSlice = List.maxBy (fun slice -> slice.score, slice.right - slice.left) slices
             result <- bestSlice :: result
             purgeSlice bestSlice cases
             readBL pathBL pathTL pathTR q
