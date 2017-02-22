@@ -7,10 +7,13 @@ open GHC.Extensions
 open GHC.Domain
 
 let checkSliceInside (slice:Slice) (pizza:Pizza) =
-    (   slice.left>0 &&
-        slice.bottom>0 &&
-        slice.right<Array2D.length2 pizza &&
-        slice.top<Array2D.length1 pizza)
+    (   slice.left>0 && slice.right < Array2D.length2 pizza &&
+        slice.top>0 && slice.bottom < Array2D.length1 pizza &&
+        slice.right>0 && slice.right<Array2D.length2 pizza &&
+        slice.bottom>0 && slice.bottom<Array2D.length1 pizza &&
+        slice.bottom>slice.top &&
+        slice.right>slice.left
+    )
 
 
 let potential (pizza:Pizza) minIngr maxCells =
@@ -18,6 +21,8 @@ let potential (pizza:Pizza) minIngr maxCells =
     let mutable sliceLength = minIngr*2
     let mutable sliceHeight = 1
     while sliceLength>=1 do
+        //printfn "%d" sliceLength
+        //System.Console.ReadLine() |> ignore
         for j = 0 to ((Array2D.length1 pizza)-1) do
             for i = 0 to ((Array2D.length2 pizza)-1) do
                 let sliceA = { left = i ; top = j-sliceHeight ; right = i+sliceLength; bottom = j; score=minIngr*2}
