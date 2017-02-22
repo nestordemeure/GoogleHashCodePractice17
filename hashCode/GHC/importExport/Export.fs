@@ -8,15 +8,14 @@ open GHC.Domain
 
 //-------------------------------------------------------------------------------------------------
 
-/// turns a list of strings into a single string (containing the elements IN order)
-let listToString sep (l : string list) =
-    match l with 
-    | [] -> ""
-    | _ -> List.reduce (fun acc s -> acc + sep + s ) l
+
 
 //-------------------------------------------------------------------------------------------------
 // EXPORTATION
 
-let export path lines =
-   //File.WriteAllText(path, text)
-   File.WriteAllLines(path, lines)
+let export path (slices:Slice list) =
+   let sliceNumber = List.length slices |> string
+   let lines =
+      slices
+      |> List.map (fun slice -> sprintf "%d %d %d %d" slice.top slice.bottom slice.right slice.left)
+   File.WriteAllLines(path, sliceNumber :: lines)
