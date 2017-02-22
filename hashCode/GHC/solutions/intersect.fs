@@ -23,8 +23,8 @@ let intersect (allParts:MutableSet<Slice>) =
    let slices = 
       allParts 
       |> List.ofSeq
-      |> List.sortByDescending (fun slice -> slice.score)
-      //|> List.sortBy (fun slice -> slice.score)
+      |> List.sortByDescending (fun slice -> slice.score,slice.top,slice.left)
+      //|> List.sortBy (fun slice -> slice.score,slice.top,slice.left)
    /// get the biggest, eliminate conflicts, etc...
    let rec greed slices solution =
       match slices with 
@@ -82,25 +82,25 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
    let cases = fillCases rowNumber colNumber allParts
    printfn "going around in circles..."
    let mutable result = []
-   let pathBL =
+   let pathTL =
       [ 
          for r = 0 to rowNumber-1 do
             for c = 0 to colNumber-1 do 
                yield (r,c)
       ]
-   let pathTL =
+   let pathBL =
       [ 
          for c = 0 to colNumber-1 do
             for r = rowNumber-1 to 0 do
                yield (r,c)
       ]
-   let pathTR =
+   let pathBR =
       [ 
          for r = rowNumber-1 to 0 do
             for c = colNumber-1 to 0 do 
                yield (r,c)
       ]
-   let pathBR =
+   let pathTR =
       [ 
          for c = colNumber-1 to 0 do
             for r = 0 to rowNumber-1 do
