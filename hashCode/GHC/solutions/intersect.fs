@@ -49,7 +49,7 @@ let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
       cases.[slice.bottom, slice.right] <- {caseBR with bottomRight= slice :: caseBR.bottomRight}
       //cases.[slice.bottom, slice.left].bottomLeft <- slice
       //cases.[slice.top, slice.left].topLeft <- slice
-      //cases.[slice.top, slice.right].topRight <- slice      
+      //cases.[slice.top, slice.right].topRight <- slice
    cases
 
 //-------------------------------------------------------------------------------------------------
