@@ -7,13 +7,15 @@ open GHC.Extensions
 open GHC.Domain
 
 let potential (pizza:Pizza) minIngr maxCells =
+    let pizzaSet = MutableSet.empty
     let mutable sliceLength = minIngr*2
+    let mutable sliceHeight = 1
     while sliceLength>=1 do 
         for j = 1 to (Array2D.length2 pizza) do
-            for i = 1 to (Array2D.length1 pizza) do
-        //MutableSet.add ({ left = 0 ; top = 0 ; right = 0; bottom = 0; score=0}) 
+            for i = 1 to (Array2D.length1 pizza) do    
+                pizzaSet.Add ({ left = 0 ; top = 0 ; right = 0; bottom = 0; score=0}) 
         sliceLength<-sliceLength/2
-   //MutableSet.empty
+        sliceHeight<-(minIngr*2)/sliceLength
 
 let isLegalSlice (pizza:Pizza) (slice:Slice) (minIngr:int) (maxCells:int) =
    let mutable nbMushroom = 0
