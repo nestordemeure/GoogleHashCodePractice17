@@ -13,4 +13,4 @@ let conflict slice1 slice2 =
 //-------------------------------------------------------------------------------------------------
 
 let intersect (allParts:MutableSet<Slice>) =
-   ()
+   let mutable slices = allParts
