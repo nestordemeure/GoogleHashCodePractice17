@@ -6,6 +6,9 @@ open GHC.Extensions
 open GHC.Extensions.Common
 open GHC.Domain
 
+open GHC.Potential
+open GHC.Intersect
+
 //-------------------------------------------------------------------------------------------------
 
 
@@ -15,4 +18,5 @@ open GHC.Domain
 
 /// solution
 let solution (pizza:Pizza) minIngr maxCells = 
-   pizza
+   let allParts = potential pizza minIngr maxCells
+   intersect allParts
