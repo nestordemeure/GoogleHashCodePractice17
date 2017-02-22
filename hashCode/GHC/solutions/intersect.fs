@@ -47,9 +47,15 @@ let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
    for slice in allParts do 
       let caseBR = cases.[slice.bottom, slice.right]
       cases.[slice.bottom, slice.right] <- {caseBR with bottomRight= slice :: caseBR.bottomRight}
-      cases.[slice.bottom, slice.left].bottomLeft <- slice
-      cases.[slice.top, slice.left].topLeft <- slice
-      cases.[slice.top, slice.right].topRight <- slice      
+
+      let caseBL = cases.[slice.bottom, slice.left]
+      cases.[slice.bottom, slice.left] <- {caseBL with bottomLeft= slice :: caseBL.bottomLeft}
+
+      let caseTL = cases.[slice.top, slice.left]
+      cases.[slice.top, slice.left] <- {caseTL with topLeft= slice :: caseBL.bottomLeft}
+
+      let caseTR = cases.[slice.top, slice.right]
+      cases.[slice.top, slice.right] <- {caseTR with topRight= slice :: caseTR.topRight}
    cases
 
 //-------------------------------------------------------------------------------------------------
