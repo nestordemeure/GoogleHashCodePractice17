@@ -13,9 +13,9 @@ open System.Collections.Generic
 //-------------------------------------------------------------------------------------------------
 // EVALUATION
 
-let mutable score = 0
+//let mutable score = 0
 
-let evaluation solution = ()
+//let evaluation solution = ()
 
 //-------------------------------------------------------------------------------------------------
 // MAIN
