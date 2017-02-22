@@ -9,8 +9,8 @@ open System.Collections.Generic
 //-------------------------------------------------------------------------------------------------
 // SOLUTION1
 let legal (slice1:Slice) (slice2:Slice) = 
-   slice1.bottom > slice2.top
-   || slice1.top < slice2.bottom
+   slice1.bottom < slice2.top
+   || slice1.top > slice2.bottom
    || slice1.left > slice2.right
    || slice1.right < slice2.left
 
@@ -30,9 +30,9 @@ let intersect (allParts:MutableSet<Slice>) =
       match slices with 
       | [] -> solution
       | bestSlice :: q -> 
-         printf "."
+         //printf "."
          let newSolution = bestSlice :: solution 
-         let newSlices = List.filter (conflict bestSlice >> not) slices
+         let newSlices = List.filter (conflict bestSlice >> not) q
          greed newSlices newSolution
    greed slices []
 
@@ -64,15 +64,14 @@ let purgeSlice slice (cases:Case[,]) =
       for c = slice.top to slice.bottom do
          cases.[r,c] <- deadCase
 
-let validSlice slice (cases:Case[,]) =
+let validSlice (cases:Case[,]) slice =
    let mutable valid = true
    let mutable r = slice.left
-   while (r <= slice.right) do 
+   while valid && (r <= slice.right) do 
       let mutable c = slice.top
-      while (c <= slice.bottom) do
-         if not cases.[r,c].live then 
-            valid <- false
-            c <- c+1
+      while valid && (c <= slice.bottom) do
+         if not cases.[r,c].live then valid <- false
+         c <- c+1
       r <- r+1
    valid
 
@@ -111,7 +110,7 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
       match pathBL with 
       | [] -> readTL pathBL pathTL pathTR pathBR
       | (r,c)::q ->
-         match cases.[r,c].bottomLeft with 
+         match List.filter (validSlice cases) cases.[r,c].bottomLeft with 
          | [] -> readBL q pathTL pathTR pathBR
          | slices -> 
             let bestSlice = List.maxBy (fun slice -> slice.score) slices
@@ -122,7 +121,7 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
       match pathTL with 
       | [] -> readTR pathBL pathTL pathTR pathBR
       | (r,c)::q ->
-         match cases.[r,c].topLeft with 
+         match List.filter (validSlice cases) cases.[r,c].topLeft with 
          | [] -> readTL pathBL q pathTR pathBR
          | slices -> 
             let bestSlice = List.maxBy (fun slice -> slice.score) slices
@@ -133,7 +132,7 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
       match pathTR with 
       | [] -> readBR pathBL pathTL pathTR pathBR
       | (r,c)::q ->
-         match cases.[r,c].topRight with 
+         match List.filter (validSlice cases) cases.[r,c].topRight with 
          | [] -> readTR pathBL pathTL q pathBR
          | slices -> 
             let bestSlice = List.maxBy (fun slice -> slice.score) slices
@@ -144,7 +143,7 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
       match pathBR with 
       | [] -> ()
       | (r,c)::q ->
-         match cases.[r,c].bottomRight with 
+         match List.filter (validSlice cases) cases.[r,c].bottomRight with 
          | [] -> readBR pathBL pathTL pathTR q
          | slices -> 
             let bestSlice = List.maxBy (fun slice -> slice.score) slices
