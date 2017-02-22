@@ -45,7 +45,8 @@ let emptyCase = {bottomRight=[];topRight=[];bottomLeft=[];topLeft=[]}
 let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
    let cases = Array2D.create rowNumber colNumber emptyCase
    for slice in allParts do 
-      cases.[slice.bottom, slice.right].bottomRight <- slice
+      let caseBR = cases.[slice.bottom, slice.right]
+      cases.[slice.bottom, slice.right] <- {caseBR with bottomRight= slice :: caseBR.bottomRight}
       cases.[slice.bottom, slice.left].bottomLeft <- slice
       cases.[slice.top, slice.left].topLeft <- slice
       cases.[slice.top, slice.right].topRight <- slice      
