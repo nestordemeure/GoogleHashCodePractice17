@@ -91,18 +91,18 @@ let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
    let pathBL =
       [ 
          for c = 0 to colNumber-1 do
-            for r = rowNumber-1 to 0 do
+            for r = rowNumber-1 downto 0 do
                yield (r,c)
       ]
    let pathBR =
       [ 
-         for r = rowNumber-1 to 0 do
-            for c = colNumber-1 to 0 do 
+         for r = rowNumber-1 downto 0 do
+            for c = colNumber-1 downto 0 do 
                yield (r,c)
       ]
    let pathTR =
       [ 
-         for c = colNumber-1 to 0 do
+         for c = colNumber-1 downto 0 do
             for r = 0 to rowNumber-1 do
                yield (r,c)
       ]
