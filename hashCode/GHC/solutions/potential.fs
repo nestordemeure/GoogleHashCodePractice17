@@ -15,6 +15,17 @@ let checkSliceInside (slice:Slice) (pizza:Pizza) =
         slice.right>slice.left
     )
 
+let isLegalSlice (slice:Slice) (pizza:Pizza) (minIngr:int) (maxCells:int) =
+   let mutable nbMushroom = 0
+   let mutable nbTomato = 0
+   for x=slice.left to slice.right do
+       for y=slice.bottom to slice.top do
+           match pizza.[x, y] with
+           | M -> nbMushroom <- nbMushroom+1
+           | T -> nbTomato <- nbTomato+1
+   (checkSliceInside slice pizza) &&
+   (nbMushroom >= minIngr) && (nbTomato >= minIngr) && (nbTomato+nbMushroom <= maxCells)
+
 
 let potential (pizza:Pizza) minIngr maxCells =
     let sliceSet = MutableSet.empty
@@ -29,20 +40,10 @@ let potential (pizza:Pizza) minIngr maxCells =
                 let sliceB = { left = i-sliceHeight ; top = j-sliceLength ; right = i; bottom = j; score=minIngr*2}
                 let sliceC = { left = i-sliceLength ; top = j ; right = i; bottom = i+sliceHeight; score=minIngr*2}
                 let sliceD = { left = i ; top = j ; right = i+sliceHeight; bottom = j+sliceLength; score=minIngr*2}
-                if (checkSliceInside sliceA pizza) then MutableSet.add sliceA sliceSet
-                if (checkSliceInside sliceB pizza) then MutableSet.add sliceB sliceSet
-                if (checkSliceInside sliceC pizza) then MutableSet.add sliceC sliceSet
-                if (checkSliceInside sliceD pizza) then MutableSet.add sliceD sliceSet
+                if (isLegalSlice sliceA pizza minIngr maxCells) then MutableSet.add sliceA sliceSet
+                if (isLegalSlice sliceB pizza minIngr maxCells) then MutableSet.add sliceB sliceSet
+                if (isLegalSlice sliceC pizza minIngr maxCells) then MutableSet.add sliceC sliceSet
+                if (isLegalSlice sliceD pizza minIngr maxCells) then MutableSet.add sliceD sliceSet
         sliceLength<-sliceLength/2
         if(sliceLength<>0) then sliceHeight<-(minIngr*2)/sliceLength
     sliceSet
-
-let isLegalSlice (pizza:Pizza) (slice:Slice) (minIngr:int) (maxCells:int) =
-   let mutable nbMushroom = 0
-   let mutable nbTomato = 0
-   for x=slice.left to slice.right do
-       for y=slice.bottom to slice.top do
-           match pizza.[x, y] with
-           | M -> nbMushroom <- nbMushroom+1
-           | T -> nbTomato <- nbTomato+1
-   (nbMushroom >= minIngr) && (nbTomato >= minIngr) && (nbTomato+nbMushroom <= maxCells)
