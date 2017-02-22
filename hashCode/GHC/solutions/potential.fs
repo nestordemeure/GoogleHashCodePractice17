@@ -7,6 +7,10 @@ open GHC.Extensions
 open GHC.Domain
 
 let potential (pizza:Pizza) minIngr maxCells =
+    let mutable sliceLength = minIngr*2
+    while sliceLength>=1 do  
+        MutableSet.add ({ left = 0 ; top = 0 ; right = 0; bottom = 0; score=0}) 
+        sliceLength<-sliceLength/2
    MutableSet.empty
 
 let isLegalSlice (pizza:Pizza) (slice:Slice) (minIngr:int) (maxCells:int) =
