@@ -25,10 +25,10 @@ let evaluation slices =
 let main argv =
     // import
     //let inPath = "../inputs/medium.in"
-    let inPaths = ["small";"medium";"big"] |> List.map (sprintf "../inputs/%s.in")
+    let inPaths = ["small";"medium";"big"]
     for inPath in inPaths do
       printfn "%s" inPath
-      let pizza, minIngr, maxCells = import inPath
+      let pizza, minIngr, maxCells = import (sprintf "../inputs/%s.in" inPath)
       // solution
       let sol = solution pizza minIngr maxCells
       // evaluation
@@ -36,5 +36,5 @@ let main argv =
       printfn "score : %d" score
       score <- 0
       //export 
-      export "../outputs/output.txt" sol
+      export (sprintf "../outputs/%sOut.txt" inPath) sol
     0 // return an integer exit code
