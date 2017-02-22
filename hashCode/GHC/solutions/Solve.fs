@@ -14,4 +14,5 @@ open GHC.Domain
 // SOLUTION
 
 /// solution
-let solution (pizza:Pizza) minIngr maxCells = data
+let solution (pizza:Pizza) minIngr maxCells = 
+   pizza

@@ -26,7 +26,7 @@ let main argv =
     let inPath = "../inputs/medium.in"
     let pizza, minIngr, maxCells = import inPath
     // solution
-    solution pizza minIngr maxCells
+    let sol = solution pizza minIngr maxCells
     // evaluation
     //evaluation r
     //printfn "score : %d" score
