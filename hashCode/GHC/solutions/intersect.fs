@@ -24,6 +24,7 @@ let intersect (allParts:MutableSet<Slice>) =
       allParts 
       |> List.ofSeq
       |> List.sortByDescending (fun slice -> slice.score)
+      //|> List.sortBy (fun slice -> slice.score)
    /// get the biggest, eliminate conflicts, etc...
    let rec greed slices solution =
       match slices with 
@@ -44,7 +45,10 @@ let emptyCase = {bottomRight=[];topRight=[];bottomLeft=[];topLeft=[]}
 let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
    let cases = Array2D.create rowNumber colNumber emptyCase
    for slice in allParts do 
-      ()
+      cases.[slice.bottom, slice.right].bottomRight <- slice
+      cases.[slice.bottom, slice.left].bottomLeft <- slice
+      cases.[slice.top, slice.left].topLeft <- slice
+      cases.[slice.top, slice.right].topRight <- slice      
    cases
 
 //-------------------------------------------------------------------------------------------------
