@@ -39,9 +39,10 @@ let intersect (allParts:MutableSet<Slice>) =
 //-------------------------------------------------------------------------------------------------
 // SOLUTION2
 
-type Case = { bottomRight : Slice list ; topRight : Slice list ; bottomLeft : Slice list ; topLeft : Slice list}
+type Case = { bottomRight : Slice list ; topRight : Slice list ; bottomLeft : Slice list ; topLeft : Slice list ; live : bool}
 
-let emptyCase = {bottomRight=[];topRight=[];bottomLeft=[];topLeft=[]}
+let emptyCase = {bottomRight=[];topRight=[];bottomLeft=[];topLeft=[];live=true}
+let deadCase = {emptyCase with live = false}
 
 let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
    let cases = Array2D.create rowNumber colNumber emptyCase
@@ -61,7 +62,19 @@ let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
 let purgeSlice slice (cases:Case[,]) =
    for r = slice.left to slice.right do 
       for c = slice.top to slice.bottom do
-         cases.[r,c] <- emptyCase
+         cases.[r,c] <- deadCase
+
+let validSlice slice (cases:Case[,]) =
+   let mutable valid = true
+   let mutable r = slice.left
+   while (r <= slice.right) do 
+      let mutable c = slice.top
+      while (c <= slice.bottom) do
+         if not cases.[r,c].live then 
+            valid <- false
+            c <- c+1
+      r <- r+1
+   valid
 
 let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
    let rowNumber = Array2D.length1 pizza
