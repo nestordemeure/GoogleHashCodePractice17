@@ -25,7 +25,7 @@ let evaluation slices =
 let main argv =
     // import
     //let inPath = "../inputs/medium.in"
-    let inPaths = ["small";"medium";"big"]
+    let inPaths = ["example";"small";"medium";"big"]
     for inPath in inPaths do
       printfn "%s" inPath
       let pizza, minIngr, maxCells = import (sprintf "../inputs/%s.in" inPath)
