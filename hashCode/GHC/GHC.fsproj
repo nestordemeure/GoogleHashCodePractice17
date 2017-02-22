@@ -52,6 +52,8 @@
     <Compile Include="Domain.fs" />
     <Compile Include="importExport/Import.fs" />
     <Compile Include="importExport/Export.fs" />
+    <Compile Include="solutions/potential.fs" />
+    <Compile Include="solutions/intersect.fs" />
     <Compile Include="solutions/Solve.fs" />
     <Compile Include="GHC.fs" />
   </ItemGroup>

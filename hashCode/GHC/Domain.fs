@@ -16,6 +16,7 @@ type Pizza = Ingr [,]
 /// legal if au moins minIngr  de chaque ingr et maxCells en tout de pizza
 type Slice = { r1 : int ; c1 : int ; r2 : int ; c2 : int ; score : int}
 
+
 type PotentialsSlices = MutableSet<Slice>
 
 //-------------------------------------------------------------------------------------------------
