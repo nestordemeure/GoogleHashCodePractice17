@@ -23,7 +23,7 @@ open System.Collections.Generic
 [<EntryPoint>]
 let main argv =
     // import
-    let inPath = "../inputs/small.in"
+    let inPath = "../inputs/medium.in"
     let pizza, minIngr, maxCells = import inPath
     // solution
 
