@@ -24,6 +24,7 @@ let intersect (allParts:MutableSet<Slice>) =
       allParts 
       |> List.ofSeq
       |> List.sortByDescending (fun slice -> slice.score)
+      //|> List.sortBy (fun slice -> slice.score)
    /// get the biggest, eliminate conflicts, etc...
    let rec greed slices solution =
       match slices with 
