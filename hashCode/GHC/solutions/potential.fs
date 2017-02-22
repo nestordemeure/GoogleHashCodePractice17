@@ -21,9 +21,9 @@ let potential (pizza:Pizza) minIngr maxCells =
         for j = 0 to ((Array2D.length1 pizza)-1) do
             for i = 0 to ((Array2D.length2 pizza)-1) do
                 let sliceA = { left = i ; top = j-sliceHeight ; right = i+sliceLength; bottom = j; score=minIngr*2}
-                let sliceB = { left = i ; top = j ; right = i+sliceLength; bottom = j+sliceHeight; score=minIngr*2}
-                let sliceC = { left = i-sliceLength ; top = j ; right = i; bottom = i+sliceLength; score=minIngr*2}
-                let sliceD = { left = i-sliceLength ; top = j-sliceHeight ; right = i; bottom = j; score=minIngr*2}
+                let sliceB = { left = i-sliceHeight ; top = j-sliceLength ; right = i; bottom = j; score=minIngr*2}
+                let sliceC = { left = i-sliceLength ; top = j ; right = i; bottom = i+sliceHeight; score=minIngr*2}
+                let sliceD = { left = i ; top = j ; right = i+sliceHeight; bottom = j+sliceLength; score=minIngr*2}
                 if (checkSliceInside sliceA pizza) then MutableSet.add sliceA sliceSet
                 if (checkSliceInside sliceB pizza) then MutableSet.add sliceB sliceSet
                 if (checkSliceInside sliceC pizza) then MutableSet.add sliceC sliceSet
