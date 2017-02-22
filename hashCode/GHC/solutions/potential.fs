@@ -6,6 +6,13 @@ open ExtCore.IO
 open GHC.Extensions
 open GHC.Domain
 
+let checkPizzaInside (slice:Slice) (pizza:Pizza) =
+    (   slice.left>0 &&
+        slice.bottom>0 &&
+        slice.right<Array2D.length2 pizza &&
+        slice.top<Array2D.length1 pizza)
+
+
 let potential (pizza:Pizza) minIngr maxCells =
     let pizzaSet = MutableSet.empty
     let mutable sliceLength = minIngr*2

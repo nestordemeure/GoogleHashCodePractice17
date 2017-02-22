@@ -22,3 +22,4 @@ let solution (pizza:Pizza) minIngr maxCells =
    let allParts = potential pizza minIngr maxCells
    printfn "computing the intersection..."
    intersect allParts
+   //intersect2 pizza allParts
