@@ -60,19 +60,20 @@ let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
 //-------------------------------------------------------------------------------------------------
 
 let purgeSlice slice (cases:Case[,]) =
-   for r = slice.left to slice.right do 
-      for c = slice.top to slice.bottom do
+   for c = slice.left to slice.right do 
+      for r = slice.top to slice.bottom do
          cases.[r,c] <- deadCase
 
 let validSlice (cases:Case[,]) slice =
    let mutable valid = true
-   let mutable r = slice.left
-   while valid && (r <= slice.right) do 
-      let mutable c = slice.top
-      while valid && (c <= slice.bottom) do
+   let mutable c = slice.left
+   let mutable r = slice.top
+   while valid && (c <= slice.right) do 
+      r <- slice.top
+      while valid && (r <= slice.bottom) do
          if not cases.[r,c].live then valid <- false
-         c <- c+1
-      r <- r+1
+         r <- r+1
+      c <- c+1
    valid
 
 let intersect2 (pizza:Pizza) (allParts:MutableSet<Slice>) =
