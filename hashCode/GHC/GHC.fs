@@ -28,7 +28,7 @@ let main argv =
     // solution
     let sol = solution pizza minIngr maxCells
     // evaluation
-    //evaluation r
+    // evaluation r
     //printfn "score : %d" score
     //export 
     export "../output.txt" [||]
