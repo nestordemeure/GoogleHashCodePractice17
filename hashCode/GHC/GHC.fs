@@ -13,9 +13,10 @@ open System.Collections.Generic
 //-------------------------------------------------------------------------------------------------
 // EVALUATION
 
-//let mutable score = 0
+let mutable score = 0
 
-//let evaluation solution = ()
+let evaluation slices = 
+   List.iter (fun slice -> score <- slice.score + score) slices
 
 //-------------------------------------------------------------------------------------------------
 // MAIN
@@ -28,8 +29,8 @@ let main argv =
     // solution
     let sol = solution pizza minIngr maxCells
     // evaluation
-    // evaluation r
-    //printfn "score : %d" score
+    evaluation sol
+    printfn "score : %d" score
     //export 
-    export "../output.txt" [||]
+    export "../output.txt" sol
     0 // return an integer exit code
