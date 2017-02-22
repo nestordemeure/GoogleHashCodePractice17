@@ -30,6 +30,7 @@ let intersect (allParts:MutableSet<Slice>) =
       match slices with 
       | [] -> solution
       | bestSlice :: q -> 
+         printf "."
          let newSolution = bestSlice :: solution 
          let newSlices = List.filter (conflict bestSlice >> not) slices
          greed newSlices newSolution
