@@ -23,7 +23,7 @@ let import path =
    let pizza = Array2D.create rowNumber colNumber M
    for i = 1 to 1 + rowNumber - 1 do 
       let index = i - 1
-      for c = 0 to colNumber do 
+      for c = 0 to colNumber-1 do 
          let ingr = if text.[i].[c] = 'T' then T else M
          pizza.[index,c] <- ingr
    pizza, minIngr, maxCells
