@@ -41,14 +41,14 @@ let potential (pizza:Pizza) minIngr maxCells =
             //System.Console.ReadLine() |> ignore
             for j = 0 to ((Array2D.length1 pizza)-1) do
                 for i = 0 to ((Array2D.length2 pizza)-1) do
-                    let sliceA = { left = i ; top = j-sliceHeight ; right = i+sliceLength; bottom = j; score=minIngr*2}
-                    let sliceB = { left = i-sliceHeight ; top = j-sliceLength ; right = i; bottom = j; score=minIngr*2}
-                    let sliceC = { left = i-sliceLength ; top = j ; right = i; bottom = i+sliceHeight; score=minIngr*2}
-                    let sliceD = { left = i ; top = j ; right = i+sliceHeight; bottom = j+sliceLength; score=minIngr*2}
+                    let sliceA = { left = i ; top = j-sliceHeight ; right = i+sliceLength; bottom = j; score=(sliceLength-1)*(sliceHeight-1)}
+                    let sliceB = { left = i-sliceHeight ; top = j-sliceLength ; right = i; bottom = j; score=(sliceLength-1)*(sliceHeight-1)}
+                    let sliceC = { left = i-sliceLength ; top = j ; right = i; bottom = i+sliceHeight; score=(sliceLength-1)*(sliceHeight-1)}
+                    let sliceD = { left = i ; top = j ; right = i+sliceHeight; bottom = j+sliceLength; score=(sliceLength-1)*(sliceHeight-1)}
                     if (isLegalSlice sliceA pizza minIngr maxCells) then MutableSet.add sliceA sliceSet
                     if (isLegalSlice sliceB pizza minIngr maxCells) then MutableSet.add sliceB sliceSet
                     if (isLegalSlice sliceC pizza minIngr maxCells) then MutableSet.add sliceC sliceSet
                     if (isLegalSlice sliceD pizza minIngr maxCells) then MutableSet.add sliceD sliceSet
             sliceLength<-sliceLength/2
-            if(sliceLength<>0) then sliceHeight<-(minIngr*2)/sliceLength
+            if(sliceLength<>0) then sliceHeight<-z/sliceLength
     sliceSet
