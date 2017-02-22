@@ -24,13 +24,17 @@ let evaluation slices =
 [<EntryPoint>]
 let main argv =
     // import
-    let inPath = "../inputs/medium.in"
-    let pizza, minIngr, maxCells = import inPath
-    // solution
-    let sol = solution pizza minIngr maxCells
-    // evaluation
-    evaluation sol
-    printfn "score : %d" score
-    //export 
-    export "../output.txt" sol
+    //let inPath = "../inputs/medium.in"
+    let inPaths = ["small";"medium";"big"] |> List.map (sprintf "../inputs/%s.in")
+    for inPath in inPaths do
+      printfn "%s" inPath
+      let pizza, minIngr, maxCells = import inPath
+      // solution
+      let sol = solution pizza minIngr maxCells
+      // evaluation
+      evaluation sol
+      printfn "score : %d" score
+      score <- 0
+      //export 
+      export "../outputs/output.txt" sol
     0 // return an integer exit code
