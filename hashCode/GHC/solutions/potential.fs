@@ -17,4 +17,4 @@ let isLegalSlice (pizza:Pizza) (slice:Slice) (minIngr:int) (maxCells:int) =
          match pizza.[x, y] with
          | M -> nbMushroom <- nbMushroom+1
          | T -> nbTomato <- nbTomato+1
-   nbMushroom > minIngr && nbTomato > minIngr && nbTomato+nbMushroom < maxCells
+   (nbMushroom > minIngr) && (nbTomato > minIngr) && (nbTomato+nbMushroom < maxCells)
