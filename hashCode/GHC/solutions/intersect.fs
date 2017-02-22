@@ -43,9 +43,13 @@ let emptyCase = {bottomRight=[];topRight=[];bottomLeft=[];topLeft=[]}
 
 let fillCases rowNumber colNumber (allParts:MutableSet<Slice>) =
    let cases = Array2D.create rowNumber colNumber emptyCase
+   for slice in allParts do 
+      ()
    cases
 
 //-------------------------------------------------------------------------------------------------
 
 let intersect2 rowNumber colNumber (allParts:MutableSet<Slice>) =
-   let casePizza = fillCases allParts ()
+   let rowNumber =
+   let colNumber = 
+   let casePizza = fillCases rowNumber colNumber allParts
