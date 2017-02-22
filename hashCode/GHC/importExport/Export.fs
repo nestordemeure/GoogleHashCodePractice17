@@ -17,5 +17,5 @@ let export path (slices:Slice list) =
    let sliceNumber = List.length slices |> string
    let lines =
       slices
-      |> List.map (fun slice -> sprintf "%d %d %d %d" slice.top slice.bottom slice.right slice.left)
+      |> List.map (fun slice -> sprintf "%d %d %d %d" slice.top slice.right slice.bottom slice.left)
    File.WriteAllLines(path, sliceNumber :: lines)
