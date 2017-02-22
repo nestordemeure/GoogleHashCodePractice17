@@ -29,7 +29,7 @@ let potential (pizza:Pizza) minIngr maxCells =
                 if (checkSliceInside sliceC pizza) then MutableSet.add sliceC sliceSet
                 if (checkSliceInside sliceD pizza) then MutableSet.add sliceD sliceSet
         sliceLength<-sliceLength/2
-        if(sliceHeight<>0) then sliceHeight<-(minIngr*2)/sliceLength
+        if(sliceLength<>0) then sliceHeight<-(minIngr*2)/sliceLength
     sliceSet
 
 let isLegalSlice (pizza:Pizza) (slice:Slice) (minIngr:int) (maxCells:int) =
